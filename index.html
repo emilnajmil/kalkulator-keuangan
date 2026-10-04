@@ -88,7 +88,49 @@
 
     <!-- [GRAFIK] -->
 
-    <!-- [TABEL] -->
+        <!-- TABEL RIWAYAT -->
+    <section class="panel" aria-labelledby="judul-tabel">
+      <div class="panel-head">
+        <h2 id="judul-tabel">Riwayat transaksi</h2>
+        <button type="button" id="btn-export-csv" class="btn btn-outline">Unduh CSV</button>
+      </div>
+
+      <!-- [FILTER] -->
+
+      <div class="table-wrap">
+        <table id="tabel-transaksi">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Jenis</th>
+              <th>Kategori</th>
+              <th class="num">Nominal</th>
+              <th>Catatan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-transaksi">
+            <!--
+              Format baris yang dirender JS (Anggota 2):
+              <tr data-id="123">
+                <td data-label="Tanggal">2026-10-04</td>
+                <td data-label="Jenis"><span class="badge badge-pemasukan">Pemasukan</span></td>
+                <td data-label="Kategori">Gaji</td>
+                <td data-label="Nominal" class="num nominal-pemasukan">Rp 50.000</td>
+                <td data-label="Catatan">Catatan</td>
+                <td data-label="Aksi" class="aksi">
+                  <button class="btn-edit" data-id="123">Edit</button>
+                  <button class="btn-hapus" data-id="123">Hapus</button>
+                </td>
+              </tr>
+              Gunakan badge-pengeluaran dan nominal-pengeluaran untuk pengeluaran.
+            -->
+          </tbody>
+        </table>
+      </div>
+
+      <p id="empty-state" class="empty-state">Belum ada transaksi. Isi form di atas untuk mulai mencatat.</p>
+    </section>
 
   </main>
 
