@@ -185,3 +185,28 @@ th { font-size: .82rem; color: var(--muted); font-weight: 600; background: var(-
   align-items: end;
   margin-bottom: 1rem;
 }
+
+/* ===== Responsif ===== */
+@media (max-width: 800px) {
+  .form-grid { grid-template-columns: 1fr 1fr; }
+  .charts { grid-template-columns: 1fr; }
+  .filters { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .summary { grid-template-columns: 1fr; }
+  .form-grid, .filters { grid-template-columns: 1fr; }
+  .panel-head { flex-direction: column; align-items: stretch; }
+
+  /* Tabel berubah jadi kartu per transaksi, label diambil dari data-label */
+  table, tbody, tr, td { display: block; width: 100%; }
+  thead { position: absolute; left: -9999px; }
+  tr { border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: .75rem; padding: .4rem .8rem; }
+  td { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px dashed var(--line); text-align: right; }
+  td:last-child { border-bottom: 0; }
+  td::before { content: attr(data-label); font-weight: 600; color: var(--muted); text-align: left; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
