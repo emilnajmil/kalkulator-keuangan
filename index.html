@@ -95,7 +95,29 @@
         <button type="button" id="btn-export-csv" class="btn btn-outline">Unduh CSV</button>
       </div>
 
-      <!-- [FILTER] -->
+            <!-- FILTER (Anggota 3) -->
+      <div class="filters">
+        <div class="field">
+          <label for="filter-jenis">Jenis</label>
+          <select id="filter-jenis">
+            <option value="semua">Semua</option>
+            <option value="pemasukan">Pemasukan</option>
+            <option value="pengeluaran">Pengeluaran</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-kategori">Kategori</label>
+          <select id="filter-kategori">
+            <option value="semua">Semua</option>
+            <!-- opsi kategori lain diisi lewat JS atau disalin dari form -->
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-bulan">Bulan</label>
+          <input type="month" id="filter-bulan">
+        </div>
+        <button type="button" id="btn-reset-filter" class="btn btn-ghost">Reset filter</button>
+      </div>
 
       <div class="table-wrap">
         <table id="tabel-transaksi">
