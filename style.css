@@ -1,0 +1,73 @@
+/* ===== Token ===== */
+:root {
+  --bg: #f3f6f5;
+  --surface: #ffffff;
+  --ink: #17262b;
+  --muted: #5d7077;
+  --line: #dbe4e2;
+  --brand: #0f6b5c;
+  --brand-dark: #0a4f44;
+  --income: #148a5b;
+  --income-bg: #e1f4ea;
+  --expense: #c8433a;
+  --expense-bg: #fbe7e4;
+  --radius: 10px;
+  --font: "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+h1, h2 { margin: 0; line-height: 1.2; }
+h2 { font-size: 1.15rem; margin-bottom: 1rem; }
+
+/* ===== Layout ===== */
+.app-header {
+  background: var(--brand);
+  color: #fff;
+  padding: 2rem 1rem 4.5rem;
+  text-align: center;
+}
+.app-header h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); }
+.app-header p { margin: .4rem 0 0; opacity: .85; }
+
+.container {
+  max-width: 960px;
+  margin: -3rem auto 0;
+  padding: 0 1rem 2rem;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.app-footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 1rem 1rem 2rem; }
+
+/* ===== Ringkasan ===== */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.summary-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--muted);
+  border-radius: var(--radius);
+  padding: 1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+.summary-card strong { font-size: clamp(1.1rem, 2.6vw, 1.5rem); overflow-wrap: anywhere; }
+.summary-label { font-size: .85rem; color: var(--muted); }
+.summary-income { border-left-color: var(--income); }
+.summary-income strong { color: var(--income); }
+.summary-expense { border-left-color: var(--expense); }
+.summary-expense strong { color: var(--expense); }
+.summary-balance { border-left-color: var(--brand); }
