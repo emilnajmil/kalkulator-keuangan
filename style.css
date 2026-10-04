@@ -71,3 +71,63 @@ h2 { font-size: 1.15rem; margin-bottom: 1rem; }
 .summary-expense { border-left-color: var(--expense); }
 .summary-expense strong { color: var(--expense); }
 .summary-balance { border-left-color: var(--brand); }
+
+/* ===== Panel & Form ===== */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+.field { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+.field-wide { grid-column: 1 / -1; }
+label { font-size: .85rem; font-weight: 600; }
+
+input, select {
+  font: inherit;
+  color: inherit;
+  width: 100%;
+  padding: .6rem .7rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+input:focus-visible, select:focus-visible, .btn:focus-visible {
+  outline: 3px solid #7cc4b6;
+  outline-offset: 1px;
+}
+input.invalid, select.invalid { border-color: var(--expense); } /* tambahkan class ini lewat JS */
+
+.form-error {
+  margin: 1rem 0 0;
+  padding: .6rem .8rem;
+  background: var(--expense-bg);
+  color: var(--expense);
+  border-radius: 8px;
+  font-size: .9rem;
+}
+.form-error[hidden] { display: none; }
+.form-actions { display: flex; gap: .75rem; margin-top: 1.25rem; flex-wrap: wrap; }
+
+/* ===== Tombol ===== */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: .6rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+.btn[hidden] { display: none; }
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: var(--brand-dark); }
+.btn-outline { background: #fff; color: var(--brand); border-color: var(--brand); }
+.btn-outline:hover { background: var(--bg); }
+.btn-ghost { background: transparent; color: var(--muted); border-color: var(--line); }
+.btn-ghost:hover { background: var(--bg); }
