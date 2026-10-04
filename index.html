@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator Keuangan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="app-header">
+    <h1>Kalkulator Keuangan</h1>
+    <p>Catat pemasukan dan pengeluaranmu di satu tempat.</p>
+  </header>
+
+  <main class="container">
+
+        <!-- RINGKASAN (diisi Anggota 2: hitung saldo/total) -->
+    <section class="summary" aria-label="Ringkasan keuangan">
+      <div class="summary-card summary-income">
+        <span class="summary-label">Total pemasukan</span>
+        <strong id="total-pemasukan">Rp 0</strong>
+      </div>
+      <div class="summary-card summary-expense">
+        <span class="summary-label">Total pengeluaran</span>
+        <strong id="total-pengeluaran">Rp 0</strong>
+      </div>
+      <div class="summary-card summary-balance">
+        <span class="summary-label">Saldo</span>
+        <strong id="saldo">Rp 0</strong>
+      </div>
+    </section>
+
+        <!-- FORM INPUT (logika: Anggota 2) -->
+    <section class="panel" aria-labelledby="judul-form">
+      <h2 id="judul-form">Tambah transaksi</h2>
+      <form id="form-transaksi" novalidate>
+        <input type="hidden" id="id-transaksi" name="id">
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="tanggal">Tanggal</label>
+            <input type="date" id="tanggal" name="tanggal" required>
+          </div>
+
+          <div class="field">
+            <label for="jenis">Jenis</label>
+            <select id="jenis" name="jenis" required>
+              <option value="pemasukan">Pemasukan</option>
+              <option value="pengeluaran">Pengeluaran</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="kategori">Kategori</label>
+            <select id="kategori" name="kategori" required>
+              <option value="">Pilih kategori</option>
+              <option value="Gaji">Gaji</option>
+              <option value="Uang saku">Uang saku</option>
+              <option value="Makanan">Makanan</option>
+              <option value="Transportasi">Transportasi</option>
+              <option value="Belanja">Belanja</option>
+              <option value="Tagihan">Tagihan</option>
+              <option value="Hiburan">Hiburan</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="nominal">Nominal (Rp)</label>
+            <input type="number" id="nominal" name="nominal" min="1" step="1" inputmode="numeric" placeholder="50000" required>
+          </div>
+
+          <div class="field field-wide">
+            <label for="catatan">Catatan</label>
+            <input type="text" id="catatan" name="catatan" maxlength="120" placeholder="Opsional, misal: makan siang">
+          </div>
+        </div>
+
+        <p id="pesan-error" class="form-error" role="alert" hidden></p>
+
+        <div class="form-actions">
+          <button type="submit" id="btn-simpan" class="btn btn-primary">Simpan transaksi</button>
+          <button type="button" id="btn-batal" class="btn btn-ghost" hidden>Batal edit</button>
+        </div>
+      </form>
+    </section>
+
+        <!-- GRAFIK (Anggota 3) -->
+    <section class="panel" aria-labelledby="judul-grafik">
+      <h2 id="judul-grafik">Grafik</h2>
+      <div class="charts">
+        <figure class="chart-box">
+          <figcaption>Pengeluaran per kategori</figcaption>
+          <div class="chart-canvas"><canvas id="chart-kategori"></canvas></div>
+        </figure>
+        <figure class="chart-box">
+          <figcaption>Pemasukan vs pengeluaran</figcaption>
+          <div class="chart-canvas"><canvas id="chart-ringkasan"></canvas></div>
+        </figure>
+      </div>
+    </section>
+
+        <!-- TABEL RIWAYAT -->
+    <section class="panel" aria-labelledby="judul-tabel">
+      <div class="panel-head">
+        <h2 id="judul-tabel">Riwayat transaksi</h2>
+        <button type="button" id="btn-export-csv" class="btn btn-outline">Unduh CSV</button>
+      </div>
+
+            <!-- FILTER (Anggota 3) -->
+      <div class="filters">
+        <div class="field">
+          <label for="filter-jenis">Jenis</label>
+          <select id="filter-jenis">
+            <option value="semua">Semua</option>
+            <option value="pemasukan">Pemasukan</option>
+            <option value="pengeluaran">Pengeluaran</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-kategori">Kategori</label>
+          <select id="filter-kategori">
+            <option value="semua">Semua</option>
+            <!-- opsi kategori lain diisi lewat JS atau disalin dari form -->
+          </select>
+        </div>
+        <div class="field">
+          <label for="filter-bulan">Bulan</label>
+          <input type="month" id="filter-bulan">
+        </div>
+        <button type="button" id="btn-reset-filter" class="btn btn-ghost">Reset filter</button>
+      </div>
+
+      <div class="table-wrap">
+        <table id="tabel-transaksi">
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Jenis</th>
+              <th>Kategori</th>
+              <th class="num">Nominal</th>
+              <th>Catatan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-transaksi">
+            <!--
+              Format baris yang dirender JS (Anggota 2):
+              <tr data-id="123">
+                <td data-label="Tanggal">2026-10-04</td>
+                <td data-label="Jenis"><span class="badge badge-pemasukan">Pemasukan</span></td>
+                <td data-label="Kategori">Gaji</td>
+                <td data-label="Nominal" class="num nominal-pemasukan">Rp 50.000</td>
+                <td data-label="Catatan">Catatan</td>
+                <td data-label="Aksi" class="aksi">
+                  <button class="btn-edit" data-id="123">Edit</button>
+                  <button class="btn-hapus" data-id="123">Hapus</button>
+                </td>
+              </tr>
+              Gunakan badge-pengeluaran dan nominal-pengeluaran untuk pengeluaran.
+            -->
+          </tbody>
+        </table>
+      </div>
+
+      <p id="empty-state" class="empty-state">Belum ada transaksi. Isi form di atas untuk mulai mencatat.</p>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">Tugas Kuliah Pengembangan Perangkat Lunak Kolaboratif</footer>
+
+  <!-- Chart.js harus dimuat sebelum chart.js milik proyek -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  <script src="storage.js"></script>
+  <script src="transactions.js"></script>
+  <script src="chart.js"></script>
+</body>
+</html>
