@@ -33,7 +33,7 @@ function setText(id, teks) {
 
 // Menampilkan tabel dan ringkasan ke layar
 function renderUI() {
-  const semuaData = getAll();
+  const semuaData = typeof getFiltered === "function" ? getFiltered() : getAll();
   const total = getTotals();
 
   // 1. Kartu ringkasan
